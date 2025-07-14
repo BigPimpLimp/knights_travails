@@ -1,21 +1,7 @@
 import './style.css';
-
+import { Knight } from './knight.js'
 console.log('Connected');
 
-class Knight {
-  constructor() {
-      this.position = [0, 0];
-      this.visited = [];
-			this.movesCounter = 0;
-  }
 
-  currentPosition(x, y) {
-      this.position = [x, y];
-  }
-
-  knightMoves() {
-
-	}
-}
-
-
+const play = new Knight();
+console.log(play.possibleMoves())
