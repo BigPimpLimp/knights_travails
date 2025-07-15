@@ -1,7 +1,7 @@
 export class Knight {
   constructor(vertices) {
       this.vertices = vertices;
-      this.position = [0, 0];
+      this.position = [3, 5];
       this.visited = [];
 			this.movesCounter = 0;
       this.board = []
@@ -18,19 +18,21 @@ export class Knight {
    
 	}
 
-  possibleMoves(postion = this.position, destination) {
-    const arr = [];
-    const availableMoves = []
+  possibleMoves(postion = this.position, destination) { //
+    const arr = []; 
+    let availableMoves = [];
 		for (let i = 0; i < 8; i++) {
 			arr.push(postion);
 		}
-		console.log(arr)
-		const values = [-2, -1, -2, 1, -1, -2, -1, 2, 1, -2, 1, 2, 2, -1, 2, 1]
+		const values = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]];
     if (postion.every(val => val > 1 && val < 6)) {
-			availableMoves = postion.map((x, index) => x + values[index])
-    }
-    return availableMoves;
-    [0, 0]
+			availableMoves = arr.map((x, index) => {
+        return x.map((y, j) => y + (values[index][j]));
+      });
+      return availableMoves;
+  }
+
+
 
     //knight has to move two spaces in any direction first,
     //then move one space horizontal.
