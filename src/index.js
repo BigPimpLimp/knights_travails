@@ -4,4 +4,4 @@ console.log('Connected');
 
 
 const play = new Knight();
-console.log(play.possibleMoves())
+console.log(play.edges())

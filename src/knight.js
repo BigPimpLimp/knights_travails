@@ -1,7 +1,7 @@
 export class Knight {
-  constructor(vertices) {
-      this.vertices = vertices;
-      this.position = [3, 5];
+  constructor() {
+      this.vertices = 64;
+      this.pathCost = pathCost
       this.visited = [];
 			this.movesCounter = 0;
       this.board = []
@@ -14,23 +14,35 @@ export class Knight {
       this.position = [x, y];
   }
 
-  knightMoves() {
-   
+  knightMoves(start, end, queue = [start]) {
+    let current = start;
+    while (!queue) {
+      queue.push(this.edges(current));
+    }
 	}
 
-  possibleMoves(postion = this.position, destination) { //
+  edges(start = this.position) { //
     const arr = []; 
+    const validMoves = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]];
     let availableMoves = [];
-		for (let i = 0; i < 8; i++) {
-			arr.push(postion);
-		}
-		const values = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]];
-    if (postion.every(val => val > 1 && val < 6)) {
-			availableMoves = arr.map((x, index) => {
-        return x.map((y, j) => y + (values[index][j]));
+    for (let i = 0; i < 8; i++) {
+      arr.push(start);
+    }
+    // if (start.every(val => val > 1 && val < 6)) {
+      availableMoves = arr.map((x, index) => {
+        return x.map((y, j) => y + (validMoves[index][j]));
       });
-      return availableMoves;
+      availableMoves.forEach((subArr, index) => {
+        subArr.forEach((element, i) => {
+          if (element < 0 || element > 7) {
+            availableMoves.splice(index, 1, null)
+            return;
+          }
+        });
+      });
+      return availableMoves.filter(i => i !== null)
   }
+
 
 
 
@@ -58,7 +70,7 @@ export class Knight {
 		//[x + 2, y + 1]
 
 
-  }
+  
 
   totalMoves() {
     
