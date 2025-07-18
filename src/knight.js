@@ -1,9 +1,8 @@
 export class Knight {
-  constructor() {
-      this.vertices = 64;
-      this.pathCost = pathCost
-      this.visited = [];
-			this.movesCounter = 0;
+  constructor(vertices) {
+      this.vertices = vertices;
+      this.position = [0, 5];
+      this.movesCounter = 0;
       this.board = []
       this.adjacencyList = {
         0: []
@@ -14,16 +13,53 @@ export class Knight {
       this.position = [x, y];
   }
 
-  knightMoves(start, end, queue = [start]) {
-    let current = start;
-    while (!queue) {
-      queue.push(this.edges(current));
-    }
-	}
+  mapMe(coordinates, prev, cost = 0) {
+    let m = new Map();
+    m.set('coordinates', coordinates)
+    m.set('prev', prev)
+    m.set('cost', cost)
+    return m;
+  }
 
-  edges(start = this.position) { //
+  knightMoves(start, end, queue = []) { 
+    let current; 
+    let hold = [];
+    current = this.mapMe(start, 'origin')
+    queue.push(current)  
+    let count = 0;
+    let visited = []
+      while (count < 15) {
+      if (JSON.stringify(queue[0]) === JSON.stringify(end)) return queue[0];
+      current = this.edges(queue[0].get('coordinates'))
+      visited.forEach(x => {
+        let i = x.get('coordinates')
+        hold.push(JSON.stringify(i))
+      })   
+      console.log(hold)
+      current.some(x => {
+        let verify = JSON.stringify(x);
+          if (hold.includes(verify)) {
+            console.log('Already visited')
+            return;
+        }
+        else {
+          let node = this.mapMe(x, queue[0].get('coordinates'))
+          queue.push(node);
+        }
+      })
+      visited.push(queue.shift())
+      count++
+    }
+
+    return queue;
+
+  }
+
+  edges(start) { //
     const arr = []; 
-    const validMoves = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]];
+    const validMoves = [
+      [-2, -1], [-2, 1], [-1, -2], [-1, 2], 
+      [1, -2], [1, 2], [2, -1], [2, 1]];
     let availableMoves = [];
     for (let i = 0; i < 8; i++) {
       arr.push(start);
@@ -45,29 +81,28 @@ export class Knight {
 
 
 
-
     //knight has to move two spaces in any direction first,
     //then move one space horizontal.
     //make sure you stay in bounds of chess board when determining
     //possible next positions.
-		//possible combinations for knight moves (coordinates):
-		//[x + 1, y + 2]
-		//[x + 2, y + 1]
-		//[x + 2, y - 1]
-		//[x + 1, y - 2]
-		//[x - 1, y - 2]
-		//[x - 2, y - 1]
-		//[x - 2, y + 1]
-		//[x - 1, y + 2]
+    //possible combinations for knight moves (coordinates):
+    //[x + 1, y + 2]
+    //[x + 2, y + 1]
+    //[x + 2, y - 1]
+    //[x + 1, y - 2]
+    //[x - 1, y - 2]
+    //[x - 2, y - 1]
+    //[x - 2, y + 1]
+    //[x - 1, y + 2]
 
-		//[x - 2, y - 1]
-		//[x - 2, y + 1]
-		//[x - 1, y - 2]
-		//[x - 1, y + 2]
-		//[x + 1, y - 2]
-		//[x + 1, y + 2]
-		//[x + 2, y - 1]
-		//[x + 2, y + 1]
+    //[x - 2, y - 1]
+    //[x - 2, y + 1]
+    //[x - 1, y - 2]
+    //[x - 1, y + 2]
+    //[x + 1, y - 2]
+    //[x + 1, y + 2]
+    //[x + 2, y - 1]
+    //[x + 2, y + 1]
 
 
   
