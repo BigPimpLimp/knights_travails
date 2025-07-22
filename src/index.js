@@ -1,5 +1,5 @@
-import { Knight } from './knight.js'
-console.log('Connected');
+import { Knight } from "./knight.js";
+console.log("Connected");
 
 // const testArr = [];
 // let h;
@@ -23,5 +23,5 @@ console.log('Connected');
 
 const play = new Knight();
 // console.log(play.edges())
-let test = play.knightMoves([0, 0], [3, 3])
-play.printMoves(test)
+let test = play.knightMoves([0, 0], [3, 3]);
+play.printMoves(test);
