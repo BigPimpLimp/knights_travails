@@ -1,4 +1,3 @@
-import './style.css';
 import { Knight } from './knight.js'
 console.log('Connected');
 
@@ -24,5 +23,5 @@ console.log('Connected');
 
 const play = new Knight();
 // console.log(play.edges())
-console.log(play.knightMoves([0, 5], [1, 7]))
-// console.log(play.visited)
+let test = play.knightMoves([0, 0], [3, 3])
+play.printMoves(test)
